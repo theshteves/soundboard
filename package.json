@@ -1,7 +1,7 @@
 {
-    'name': 'soundboard',
-    'author': 'Steven Kneiser',
-    'dependencies': {
-	'express': '4.12.x'
+    "name": "soundboard",
+    "author": "Steven Kneiser",
+    "dependencies": {
+	"express": "4.12.x"
     }
 }
