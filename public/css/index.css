@@ -2,10 +2,11 @@ body {
     background-color: #ff8800;
 }
 
-#header {
-    background-color: #ffAA00;
+#board {
+    padding-top: 30px;
 }
 
-#main {
-    background-color: #ff8866;
+form {
+    padding-top: 30px;
+    padding-right: 33%;
 }
