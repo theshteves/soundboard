@@ -11,9 +11,10 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
   </head>
 
-  <body ng-controller="soundCtrl">
+  <body>
 
     <div id="header" class="container-fluid">
       <div class="row">
@@ -29,7 +30,7 @@
 	  <form>
 	    <div class="form-group">
 	      <label for="InputSound">Sound ID</label>
-	      <input type="text" class="form-control" id="InputSound" placeholder="Enter name" ng-model="name" />
+	      <input type="text" class="form-control" id="InputSound" placeholder="Enter name" autofocus />
 	    </div>
 	    <div class="form-group">
 	      <label for="InputFile">Sound File</label>
@@ -45,7 +46,7 @@
     <div id="board" class="container">
       <table class="table table-bordered table-condensed">
 
-	<tr>
+	<tr id="row-1">
 	  <td>
 	    <button type="button" class="btn btn-info">
 	      <h4>{{ name }}</h4>
