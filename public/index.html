@@ -16,47 +16,41 @@
 
   <body>
 
-    <div id="header" class="container-fluid">
-      <div class="row">
-	<div class="col-md-6">
-	  <h1>Getting Started</h1>
-	  <p>Upload your sound files over to the right and click the 'Add Sound' button</p>
-	  <h3>Sample info</h3>
-	  <h4>Sample info</h4>
-	  <h5>Sample info</h5>
-	  <h6>Sample info</h6>
-	</div>
-	<div class="col-md-6">
-	  <form>
-	    <div class="form-group">
-	      <label for="InputSound">Sound ID</label>
-	      <input type="text" class="form-control" id="InputSound" placeholder="Enter name" autofocus />
-	    </div>
-	    <div class="form-group">
-	      <label for="InputFile">Sound File</label>
-	      <input type="file" id="InputFile">
-	    </div>
-	    <button id="submit" type="submit" class="btn btn-primary">Add Sound</button>
-	    </form>
-	</div>
+    <div id="header" class="container-fluid row">
+
+      <div class="col-md-6">
+	<h1>Getting Started</h1>
+	<p>Upload your sound files over to the right and click the 'Add Sound' button</p>
+	<h3>Sample info</h3>
+	<h4>Sample info</h4>
+	<h5>Sample info</h5>
+	<h6>Sample info</h6>
       </div>
+
+      <div class="col-md-6">
+	<form>
+	  <div class="form-group">
+	    <label for="InputName">Button Label</label>
+	    <input type="text" class="form-control" id="InputName" placeholder="Enter name" autofocus />
+	  </div>
+	  <div class="form-group">
+	    <label for="InputSource">Source URL</label>
+	    <input type="text" class="form-control" id="InputSource" placeholder="Enter URL" />
+	  </div>
+	  <button id="submit" type="submit" class="btn btn-primary">Add Sound</button>
+	</form>
+      </div>
+
       <a href="https://github.com/theshteves/soundboard"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
     </div>
 
     <div id="board" class="container">
       <table class="table table-bordered table-condensed">
 	<tbody>
-	  <tr id="row-1">
-	    <td>
-	      <button id="1-1" type="button" class="btn">
-		<h4>HWAT.</h4>
-		<span aria-hidden="true">Z</span>
-	      </button>
-	    </td>
-	  </tr>
 	</tbody>
       </table>
-
     </div>
+
   </body>
 </html>
