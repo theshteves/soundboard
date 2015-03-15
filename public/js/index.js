@@ -21,6 +21,29 @@ $(document).ready(function() {
 
 function addButton(name, key, color, path) {
 
+    // Grab audio file extension (catch TypeErrors? Nah.)
+    var soundType = path.split(".").reverse()[0];
+
+    // Considered audio media types:
+    //  - Uncompressed: *.wav
+    //  - Lossless compression: *.mpeg,
+    //  - Lossy compression: *.mp3, *.mp4
+    //  * ogg covers a particular range of inclusive audio media types
+    //  * other types get thrown in case their extension is a recognized type
+    switch (soundType) {
+    case "wav":
+	soundType = "x-wav";
+	break;
+    case "ogg":
+	soundType = "ogg";
+    case "mp3":
+    case "mp4":
+	soundType = "mpeg";
+	break;
+    default:
+	return err; // TBC!!!
+    }
+
     // Null parameter exeptions
     if (key == null) {
 	key = "A";
@@ -34,7 +57,7 @@ function addButton(name, key, color, path) {
     var newRow = false;
     for (var row = 1; row < 9; row += 1) {
 
-	for (var cell = 1; cell < 9; cell += 1) {
+	for (var cell = 1; cell < 4; cell += 1) {
 	    if (!document.getElementById(row + "-" + cell)) {
 		idNum = row + "-" + cell;
 	    }
@@ -58,10 +81,11 @@ function addButton(name, key, color, path) {
 	newSubLabel = document.createElement("H6");
 
     // Assemble button
-    newSoundSource.setAttribute("type", "audio/*");
+    newSoundSource.setAttribute("type", "audio/" + soundType);
     newSoundSource.setAttribute("src", path);
     newSoundPlayer.appendChild(newSoundSource);
     newSoundPlayer.setAttribute("id", "sound-" + idNum);
+    newSoundPlayer.setAttribute("controls", "true");
     newBtn.appendChild(newSoundPlayer);
 
     var labelText = document.createTextNode(name);
