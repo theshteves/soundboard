@@ -17,7 +17,35 @@ $(document).ready(function() {
 	$("#InputName").val("");
 	$("#InputSource").val("");
     });
+
+    // Play sound on key press
+    $("body").keypress(function(e) {
+
+	for (var row = 1; row < 4; row++) {
+	    for (var cell = 1; cell < 4; cell++) {
+
+		// Check if key pressed matches the ID of a button's key
+		if (document.getElementById(row + "-" + cell)) {
+
+		    var soundId = "sound-" + row + "-" + cell,
+			keyId = "key-" + soundId.substring(6);
+
+		    if (String.fromCharCode(e.keyCode) == document.getElementById(keyId).innerHTML) {
+
+			if (document.getElementById(soundId).paused == false) {
+			    document.getElementById(soundId).pause()
+			} else {
+			    document.getElementById(soundId).play()
+			}
+			break;
+		    }
+		}
+	    }
+	}
+
+    });
 });
+
 
 function addButton(name, key, color, path) {
 
@@ -36,6 +64,7 @@ function addButton(name, key, color, path) {
 	break;
     case "ogg":
 	soundType = "ogg";
+	break;
     case "mp3":
     case "mp4":
 	soundType = "mpeg";
@@ -45,9 +74,6 @@ function addButton(name, key, color, path) {
     }
 
     // Null parameter exeptions
-    if (key == null) {
-	key = "A";
-    }
     if (color == null) {
 	color = "primary";
     }
@@ -55,11 +81,13 @@ function addButton(name, key, color, path) {
     // Determine next available slot for button
     var idNum = 0;
     var newRow = false;
-    for (var row = 1; row < 9; row += 1) {
+    KEYS = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM"
+    for (var row = 1; row < 17; row++) {
 
-	for (var cell = 1; cell < 4; cell += 1) {
+	for (var cell = 1; cell < 4; cell++) {
 	    if (!document.getElementById(row + "-" + cell)) {
 		idNum = row + "-" + cell;
+		key = KEYS[3*(row - 1) + (3 - cell)]
 	    }
 	}
 
@@ -85,7 +113,7 @@ function addButton(name, key, color, path) {
     newSoundSource.setAttribute("src", path);
     newSoundPlayer.appendChild(newSoundSource);
     newSoundPlayer.setAttribute("id", "sound-" + idNum);
-    newSoundPlayer.setAttribute("controls", "true");
+    //newSoundPlayer.setAttribute("controls", "true");
     newBtn.appendChild(newSoundPlayer);
 
     var labelText = document.createTextNode(name);
@@ -94,6 +122,7 @@ function addButton(name, key, color, path) {
 
     var subLabelText = document.createTextNode(key);
     newSubLabel.appendChild(subLabelText);
+    newSubLabel.setAttribute("id", "key-" + idNum);
     newSubLabel.setAttribute("aria-hidden", "true");
     newBtn.appendChild(newSubLabel);
 
