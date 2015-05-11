@@ -31,12 +31,17 @@ $(document).ready(function() {
 			keyId = "key-" + soundId.substring(6);
 
 		    if (String.fromCharCode(e.keyCode) == document.getElementById(keyId).innerHTML) {
-
+			// Toggle sound
 			if (document.getElementById(soundId).paused == false) {
-			    document.getElementById(soundId).pause()
+
+			    document.getElementById(soundId).pause();
 			} else {
-			    document.getElementById(soundId).play()
+			    document.getElementById(soundId).play();
 			}
+
+			// Change Button Color
+			$("#"+row+"-"+cell).toggleClass("btn-default");
+			$("#"+row+"-"+cell).toggleClass("btn-warning");
 			break;
 		    }
 		}
@@ -74,6 +79,9 @@ function addButton(name, key, color, path) {
     }
 
     // Null parameter exeptions
+    if (name == "") {
+	name = "*unnamed*";
+    }
     if (color == null) {
 	color = "primary";
     }
