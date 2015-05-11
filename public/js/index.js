@@ -18,37 +18,50 @@ $(document).ready(function() {
 	$("#InputSource").val("");
     });
 
-    // Play sound on key press
-    $("body").keypress(function(e) {
+    // Play sound on button click
+    // - I'm falling asleep...just commit what I got before I forget
+    /*
+    $("button").click(function(e) {
 
-	for (var row = 1; row < 4; row++) {
-	    for (var cell = 1; cell < 4; cell++) {
+    });
+    */
 
-		// Check if key pressed matches the ID of a button's key
-		if (document.getElementById(row + "-" + cell)) {
+    // As long as neither input field is in focus
+    //  - BUG STILL EXISTS
+    //  - What is this, callback hell? Fix it.
+    if (!( $("#InputName").is(":active") || $("#InputSource").is(":active") )) {
 
-		    var soundId = "sound-" + row + "-" + cell,
-			keyId = "key-" + soundId.substring(6);
+	// Play sound on key press
+	$("body").keypress(function(e) {
 
-		    if (String.fromCharCode(e.keyCode) == document.getElementById(keyId).innerHTML) {
-			// Toggle sound
-			if (document.getElementById(soundId).paused == false) {
+	    for (var row = 1; row < 4; row++) {
+		for (var cell = 1; cell < 4; cell++) {
 
-			    document.getElementById(soundId).pause();
-			} else {
-			    document.getElementById(soundId).play();
+		    // Check if key pressed matches the ID of a button's key
+		    if (document.getElementById(row + "-" + cell)) {
+
+			var soundId = "sound-" + row + "-" + cell,
+			    keyId = "key-" + soundId.substring(6);
+
+			if (String.fromCharCode(e.keyCode) == document.getElementById(keyId).innerHTML) {
+			    // Toggle sound
+			    if (document.getElementById(soundId).paused == false) {
+
+				document.getElementById(soundId).pause();
+			    } else {
+				document.getElementById(soundId).play();
+			    }
+
+			    // Change Button Color
+			    $("#"+row+"-"+cell).toggleClass("btn-default");
+			    $("#"+row+"-"+cell).toggleClass("btn-warning");
+			    break;
 			}
-
-			// Change Button Color
-			$("#"+row+"-"+cell).toggleClass("btn-default");
-			$("#"+row+"-"+cell).toggleClass("btn-warning");
-			break;
 		    }
 		}
 	    }
-	}
-
-    });
+	});
+    }
 });
 
 
