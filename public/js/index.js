@@ -18,50 +18,37 @@ $(document).ready(function() {
 	$("#InputSource").val("");
     });
 
-    // Play sound on button click
-    // - I'm falling asleep...just commit what I got before I forget
-    /*
-    $("button").click(function(e) {
+    // Play sound on key press
+    $("body").keypress(function(e) {
 
-    });
-    */
-
-    // As long as neither input field is in focus
-    //  - BUG STILL EXISTS
-    //  - What is this, callback hell? Fix it.
-    if (!( $("#InputName").is(":active") || $("#InputSource").is(":active") )) {
-
-	// Play sound on key press
-	$("body").keypress(function(e) {
+	// As long as neither input field is in focus
+	if (!( $("#InputName").is(":focus") || $("#InputSource").is(":focus") )) {
 
 	    for (var row = 1; row < 4; row++) {
 		for (var cell = 1; cell < 4; cell++) {
 
-		    // Check if key pressed matches the ID of a button's key
 		    if (document.getElementById(row + "-" + cell)) {
-
-			var soundId = "sound-" + row + "-" + cell,
-			    keyId = "key-" + soundId.substring(6);
-
-			if (String.fromCharCode(e.keyCode) == document.getElementById(keyId).innerHTML) {
-			    // Toggle sound
-			    if (document.getElementById(soundId).paused == false) {
-
-				document.getElementById(soundId).pause();
-			    } else {
-				document.getElementById(soundId).play();
-			    }
-
-			    // Change Button Color
-			    $("#"+row+"-"+cell).toggleClass("btn-default");
-			    $("#"+row+"-"+cell).toggleClass("btn-warning");
-			    break;
-			}
+			ToggleSoundCheck(e, row, cell);
 		    }
 		}
 	    }
-	});
-    }
+	}
+    });
+
+    // Release button when done playing
+    //  ~UNFINISHED
+    $("audio").bind("ended", function() {
+
+	/* Testing if code runs
+	var p = document.createElement("P");
+	var ptext = document.createTextNode("JACKPOT.");
+	p.appendChild(ptext);
+	$("body").append(p);
+	*/
+
+	//playing = false;
+	//$(this).parent().removeClass("btn-warning");
+    });
 });
 
 
@@ -75,7 +62,7 @@ function addButton(name, key, color, path) {
     //  - Lossless compression: *.mpeg,
     //  - Lossy compression: *.mp3, *.mp4
     //  * ogg covers a particular range of inclusive audio media types
-    //  * other types get thrown in case their extension is a recognized type
+    //  * other types return an error
     switch (soundType) {
     case "wav":
 	soundType = "x-wav";
@@ -158,5 +145,27 @@ function addButton(name, key, color, path) {
 	$("tbody").append(newRow);
     } else {
 	$("tr:last-child").append(newSpace);
+    }
+}
+
+function ToggleSoundCheck(e, row, cell) {
+
+    var soundId = "sound-" + row + "-" + cell,
+	keyId = "key-" + soundId.substring(6);
+
+    // Check if key pressed matches the ID of a button's key
+    if (String.fromCharCode(e.keyCode) == document.getElementById(keyId).innerHTML) {
+
+	// Toggle sound
+	if (document.getElementById(soundId).paused == false) {
+
+	    document.getElementById(soundId).pause();
+	    $("#"+row+"-"+cell).removeClass("btn-warning");
+	} else {
+	    document.getElementById(soundId).play();
+	    $("#"+row+"-"+cell).addClass("btn-warning");
+	}
+
+	return true;
     }
 }
