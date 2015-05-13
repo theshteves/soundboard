@@ -1,18 +1,11 @@
 var express = require('express'),
     path = require('path'),
     chalk = require('chalk'),
-    app = express(),
-    router = express.Router();
+    app = express();
 
 app.use(express.static(path.join(__dirname, '../public')))
 
-router.use(function(req, res, next) {
-    console.log(chalk.green('%s %s %s', req.method, req.url, req.path));
-    next();
-});
-
 app.get('/', function(req, res) {
-    console.log(req);
     res.render('index.html');
 });
 
