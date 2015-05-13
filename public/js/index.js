@@ -1,3 +1,10 @@
+var test = function() {
+    var p = document.createElement("P");
+    var ptext = document.createTextNode("JACKPOT.");
+    p.appendChild(ptext);
+    $("body").append(p);
+};
+
 $(document).ready(function() {
 
     // Add sound
@@ -33,21 +40,6 @@ $(document).ready(function() {
 		}
 	    }
 	}
-    });
-
-    // Release button when done playing
-    //  ~UNFINISHED
-    $("audio").bind("ended", function() {
-
-	/* Testing if code runs
-	var p = document.createElement("P");
-	var ptext = document.createTextNode("JACKPOT.");
-	p.appendChild(ptext);
-	$("body").append(p);
-	*/
-
-	//playing = false;
-	//$(this).parent().removeClass("btn-warning");
     });
 });
 
@@ -116,13 +108,21 @@ function addButton(name, key, color, path) {
 	newLabel = document.createElement("H4"),
 	newSubLabel = document.createElement("H6");
 
-    // Assemble button
+    //<--- Assemble button
     newSoundSource.setAttribute("type", "audio/" + soundType);
     newSoundSource.setAttribute("src", path);
     newSoundPlayer.appendChild(newSoundSource);
     newSoundPlayer.setAttribute("id", "sound-" + idNum);
     //newSoundPlayer.setAttribute("controls", "true");
     newBtn.appendChild(newSoundPlayer);
+
+    // Prepare button to toggle colors when audio plays
+    newSoundPlayer.addEventListener("playing", function() {
+	newBtn.setAttribute("class", "btn btn-warning");
+    });
+    newSoundPlayer.addEventListener("pause", function() {
+	newBtn.setAttribute("class", "btn");
+    });
 
     var labelText = document.createTextNode(name);
     newLabel.appendChild(labelText);
@@ -138,6 +138,7 @@ function addButton(name, key, color, path) {
     newBtn.setAttribute("type", "button");
     newBtn.setAttribute("class", "btn");
     newSpace.appendChild(newBtn);
+    //--->
 
     // Attach to DOM based on whether new row was generated
     if (newRow) {
@@ -160,10 +161,8 @@ function ToggleSoundCheck(e, row, cell) {
 	if (document.getElementById(soundId).paused == false) {
 
 	    document.getElementById(soundId).pause();
-	    $("#"+row+"-"+cell).removeClass("btn-warning");
 	} else {
 	    document.getElementById(soundId).play();
-	    $("#"+row+"-"+cell).addClass("btn-warning");
 	}
 
 	return true;
