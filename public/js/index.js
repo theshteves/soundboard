@@ -1,9 +1,11 @@
-var test = function() {
+// For Debugging Purposes Only...
+var debug = function() {
     var p = document.createElement("P");
     var ptext = document.createTextNode("JACKPOT.");
     p.appendChild(ptext);
     $("body").append(p);
 };
+
 
 $(document).ready(function() {
 
@@ -31,7 +33,7 @@ $(document).ready(function() {
 	// As long as neither input field is in focus
 	if (!( $("#InputName").is(":focus") || $("#InputSource").is(":focus") )) {
 
-	    for (var row = 1; row < 4; row++) {
+	    for (var row = 1; row < 17; row++) {
 		for (var cell = 1; cell < 4; cell++) {
 
 		    if (document.getElementById(row + "-" + cell)) {
@@ -149,13 +151,14 @@ function addButton(name, key, color, path) {
     }
 }
 
+
 function ToggleSoundCheck(e, row, cell) {
 
     var soundId = "sound-" + row + "-" + cell,
 	keyId = "key-" + soundId.substring(6);
 
     // Check if key pressed matches the ID of a button's key
-    if (String.fromCharCode(e.keyCode) == document.getElementById(keyId).innerHTML) {
+    if (String.fromCharCode(e.keyCode).toUpperCase() == document.getElementById(keyId).innerHTML) {
 
 	// Toggle sound
 	if (document.getElementById(soundId).paused == false) {
